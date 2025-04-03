@@ -1,0 +1,49 @@
+✍️ Självständig Övningar:
+
+🎯Eleverna får jobba själva/par under första delen av lektionen.
+
+Uppgift: Datamodellering och databasplanering
+
+Eleverna genomför följande självständigt eller i par:
+
+Scenario:
+
+Ni ska bygga en enkel applikation som hanterar böcker. Applikationen ska kunna lagra information om varje bok samt vilka användare som lånat böckerna.
+
+Gör följande:
+
+Skapa en enkel datamodell (använd papper/digitalt dokument) som visar:
+
+Vilka entiteter som behövs (t.ex. Bok, Användare, Lån etc).
+
+Vilka egenskaper varje entitet ska ha (t.ex. titel, författare, användarnamn, lånedatum).
+
+Vilka datatyper varje egenskap bör ha (string, number, date, boolean etc).
+
+Fundera och skriv ner varför just dessa datatyper passar bäst.
+
+Tänk ut och skriv ner några exempel på frågor man kan vilja ställa till databasen (ex: ”vilka böcker är utlånade just nu?”, ”vilka böcker har användaren ’Anna’ lånat?”).
+
+Viktigt:
+Detta ska göras noggrant och strukturerat. Ni ska presentera er datamodell och era tankar efter lärarens genomgång.
+......................................................
+🎯 Avancerad Bonusövning för snabba studenter:
+Utöka er datamodell från den tidigare uppgiften med följande:
+
+Lägg till ytterligare en entitet, Författare, som ska kopplas till varje bok.
+
+Fundera över och beskriv hur ni hanterar relationen mellan Böcker och Författare i en NoSQL-databas som NeDB (embedded documents eller separata dokument?).
+
+Gör en detaljerad skiss eller kodexempel på hur ett sådant dokument skulle kunna se ut i JSON-format.
+
+Utöka era exempel-frågor som ni skulle ställa till databasen, t.ex. ”vilka böcker har skrivits av författare X?” eller ”vilka böcker har lånats ut flest gånger?”.
+
+--------------------------------------
+--------------------------------------
+--------------------------------------
+🟢 Lätta Övningar
+--------------------------------------
+🟠 Medelsvåra Övningar
+--------------------------------------
+🔴 Svåra Övningar
+

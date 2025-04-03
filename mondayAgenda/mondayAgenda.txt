@@ -1,0 +1,181 @@
+🚀 Lektion 1: Introduktion Databaser och NeDB
+
+📌 Lektionsmål:
+Efter lektionen ska de studerande kunna:
+
+Förstå grunderna i datamodellering och dess syfte.
+
+Förstå vad en databas är och skillnaden mellan SQL och NoSQL.
+
+Förstå konceptet "Persistent data".
+
+Skapa och använda en enkel NoSQL-databas (NeDB).
+
+Skapa ett enkelt API som interagerar med en JSON-databas.
+
+------------------------------------------------------------
+📝 Lektionsplanering (3 timmar):
+
+00:00–01:30	✅ Självständig övning (Utan lärare)
+01:30–02:00	✅ PowerPoint & teori
+02:00–02:50	✅ Code-Along: NeDB och enkel CRUD+
+
+------------------------------------------------------------
+------------------------------------------------------------
+------------------------------------------------------------
+
+📚 PowerPoint-slides (Datamodellering) & Talarmanus:
+
+Slide 1 – Vad är en Datamodell?
+"En datamodell är ett verktyg vi använder för att organisera och strukturera data. Den visar tydligt hur olika delar av vår data hänger ihop, och hjälper oss att förstå relationer mellan objekt, egenskaper och händelser i verkligheten. Målet är att skapa ordning i komplex information."
+
+-------------------------------------------------
+Slide 2 – Utmaningen
+"Den stora utmaningen när vi jobbar med datamodellering är att verkligheten är oerhört komplex. Vår uppgift blir därför att hitta ett sätt att förenkla denna komplexitet, så att vi kan lagra och hantera data effektivt."
+
+-------------------------------------------------
+Slide 3 – Verkligheten vs Datamodell
+"Den här bilden illustrerar ett viktigt koncept: Datamodellen är alltid en förenkling av verkligheten. Till exempel: en människa är komplex med känslor, tankar, upplevelser och relationer. När vi modellerar detta i en databas kan vi bara fånga en liten del – kanske namn, ålder, adress. Datamodellen är alltså aldrig verkligheten själv, utan bara en avgränsad representation av den."
+
+-------------------------------------------------
+Slide 4 – Exempel: Bil
+"När vi modellerar data om ett specifikt objekt, till exempel en bil, börjar vi med att fundera över vilka egenskaper som utmärker detta objekt. Vilka egenskaper har alla bilar gemensamt? Vad skiljer bilar åt? Genom att besvara dessa frågor kan vi skapa en tydlig modell."
+
+-------------------------------------------------
+Slide 5 – Bild (3 olika bilar)
+"Titta på dessa tre bilar: en sportbil, en familjebil och en lastbil. De är väldigt olika, men vad har de gemensamt? Alla har hjul, ett drivmedel, ett registreringsnummer, och så vidare. Datamodellen för en bil ska fokusera på de egenskaper som alla bilar delar. Det är grunden för en hållbar och skalbar datamodell."
+
+-------------------------------------------------
+Slide 6 – Exempel på Bil-objekt
+"Här är ett konkret exempel på ett bil-objekt i JavaScript. Vi har valt några grundläggande egenskaper som antal hjul och bränsletyp. Frågan vi bör ställa oss är alltid: Är alla egenskaper relevanta att spara? Behöver vi verkligen lagra om bilen har en ratt, eller är det självklart?"
+
+-------------------------------------------------
+Slide 7 – Övning (Cykel-objekt)
+"Nu får ni testa själva: Fundera över vilka egenskaper som kännetecknar en cykel. Vad är gemensamt för alla cyklar? Vilka egenskaper skiljer olika cyklar åt? Detta är kärnan i att skapa en effektiv datamodell."
+
+-------------------------------------------------
+Slide 8 – I vilken form kommer data?
+"Data kommer i flera olika format som text, nummer, objekt, arrayer, booleans och binärt format som bilder eller filer. Vilken form data har påverkar hur vi sparar och hanterar den."
+
+-------------------------------------------------
+Slide 9 – Hur ska data sparas?
+"Hur vi sparar data beror på komplexiteten. Enkel data kan sparas i listor eller tabeller, medan mer komplex data ofta kräver dokumentformat eller relationer mellan tabeller eller dokument."
+
+-------------------------------------------------
+Slide 10 – Databastyper
+"Det finns två huvudtyper av databaser: SQL (relationella) och NoSQL (dokumentbaserade). SQL använder tabeller med strikt struktur medan NoSQL sparar data i ett flexibelt dokumentformat."
+
+-------------------------------------------------
+Slide 11 – Vad är en databas?
+"En databas är helt enkelt en organiserad samling data. Den är specialiserad på att effektivt lagra, söka, ändra och ta bort data – ofta stora mängder information."
+
+-------------------------------------------------
+Slide 12 – Persistent data
+"Persistent data är data som lagras permanent och inte försvinner när servern stängs av. Typiska exempel är användarinformation, inställningar eller inlägg och kommentarer."
+
+-------------------------------------------------
+Slide 13 – Vad är SQL?
+"SQL-databaser organiserar data strikt i tabeller där varje rad har samma struktur. Ett exempel på en SQL-fråga är: 'SELECT * FROM customers WHERE name = Johan'."
+
+-------------------------------------------------
+Slide 14 – Vad är NoSQL?
+"NoSQL-databaser lagrar data flexibelt, ofta som JSON-dokument. De är perfekta när data har varierande struktur eller behöver ändras ofta under utvecklingen."
+
+-------------------------------------------------
+Slide 15 – NoSQL vs Relational (Normalisering)
+"Normalisering är en process inom SQL där vi undviker att samma data lagras flera gånger. NoSQL tillåter tvärtom viss duplicering, eftersom flexibilitet ofta är viktigare än datakonsistens."
+
+-------------------------------------------------
+Slide 16 – NoSQL vs Relational (Flexibilitet)
+"SQL-databaser kräver strikt och oföränderlig struktur från början. I NoSQL-databaser kan vi däremot ändra och anpassa datastrukturen kontinuerligt efter projektets behov."
+
+-------------------------------------------------
+Slide 17 – NoSQL vs Relational (Skalbarhet)
+"När mängden data ökar kan SQL-databaser bli långsamma och kräver ofta bättre hårdvara. NoSQL-databaser däremot kan enkelt skalas horisontellt genom att lägga till fler servrar, vilket passar bra för stora mängder data, så kallad Big Data."
+
+-------------------------------------------------
+Slide 18 – NoSQL vs Relational (Utvecklingsflexibilitet)
+"En viktig skillnad är utvecklingsflexibiliteten. Med SQL måste du veta exakt vilken data du ska spara redan från början, medan NoSQL-databaser låter dig utveckla och ändra datamodellen löpande under projektets gång. Det ger stor flexibilitet för utvecklaren."
+
+-------------------------------------------------
+Slide 19 – Hur ska man tänka?
+"Så, hur ska du tänka när du modellerar data? Börja alltid med att utgå från applikationens gränssnitt och funktion. Vilken data behövs verkligen för att lösa problemet? Fundera över säkerhet, som känslig data. Tänk alltid på verkliga objekt och deras egenskaper, så bygger du en logisk och hållbar datamodell."
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+💻 Code-Along: NeDB och enkel CRUD:
+
+🔧 Steg 1: Installation
+
+npm init -y
+npm install nedb express
+
+-------------------------------------------------
+🏗️ Projektstruktur:
+projektmapp/
+│
+├── server.js  <-- här skriver vi all kod!
+└── package.json
+
+-------------------------------------------------
+📌 Steg 2: Skapa Express-server (server.js):
+
+Genomför den koden.
+
+📌 Steg 3: Skapa och ladda NeDB-databasen:
+
+Genomför den koden.
+
+📌 Steg 4: CRUD-operationer:
+CREATE (POST):
+
+READ (GET):
+
+Genomför den koden.
+
+-------------------------------------------------
+🔍 Testa API:t live i Postman
+
+1. Starta servern:
+node server.js
+
+2. Välj POST och skriv in adressen:
+http://localhost:3000/books
+
+3. Klicka på fliken "Body", välj "raw" och välj JSON-format.
+
+4. Lägg in detta exempelobjekt:
+{
+    "title": "Harry Potter",
+    "author": "J.K. Rowling",
+    "pages": 450
+}
+
+5. Klicka på Send.
+Du ska få tillbaka samma objekt med ett nytt id genererat av NeDB.
+
+--------------------------------------------------
+Testa sedan GET:
+
+1. Välj nu GET i Postman.
+
+2. Samma adress (http://localhost:3000/books), klicka på Send.
+
+3. Du ska nu få en lista med sparade böcker tillbaka från databasen.
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+🧠 Reflektionsfrågor till diskussion
+
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+🗣️ Sammanfattning
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+🗣️ Självständig Övningar:
