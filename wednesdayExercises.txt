@@ -1,0 +1,86 @@
+🎯 Självständig övning
+
+🟢 Lätta Övningar
+
+Övning 1: Lägg till flera böcker
+Skapa en POST-route som låter användaren lägga till flera böcker samtidigt med hjälp av en array i bodyn.
+
+Exempel på JSON-body:
+[
+  { "title": "Sagan om Ringen", "author": "J.R.R. Tolkien", "pages": 1200 },
+  { "title": "Cirkeln", "author": "Mats Strandberg & Sara Elfgren", "pages": 520 }
+]
+
+--------------------------------------
+Övning 2: Hämta böcker efter författare
+Skapa en GET-route som hämtar och returnerar alla böcker skrivna av en specifik författare.
+
+Tips: Använd db.find() med rätt query.
+
+--------------------------------------
+🟠 Medelsvåra Övningar
+
+Övning 1: Uppdatera antal sidor (pages) för alla böcker av en författare
+Skapa en PUT-route som uppdaterar antalet sidor på alla böcker av en viss författare.
+
+Exempel:
+Uppdatera antal sidor på alla J.K. Rowling böcker till 600.
+
+Tips: Använd {multi: true} i db.update().
+
+--------------------------------------
+Övning 2: Ta bort alla böcker med färre än X antal sidor
+
+Skapa en DELETE-route där användaren kan ange antal sidor, och ta bort alla böcker som har färre än detta antal.
+
+Exempel:
+DELETE http://localhost:8080/books/pages/300
+(Borde ta bort alla böcker med mindre än 300 sidor.)
+
+Tips: Använd query { pages: { $lt: req.params.pages } }.
+
+--------------------------------------
+🔴 Svåra Övningar
+
+Övning 1: Sökfunktion med flera kriterier
+
+Skapa en GET-route där du kan söka efter böcker baserat på flera valfria kriterier samtidigt (t.ex. titel, författare, min/max antal sidor).
+
+Tips: Använd req.query och skapa dynamiskt en query till db.find().
+
+--------------------------------------
+Övning 2: Implementera delvis uppdatering (PATCH)
+
+Skapa en PATCH-route där användaren kan uppdatera en valfri kombination av fält i en specifik bok.
+
+Exempel på body:
+{
+  "author": "J.R.R Tolkien",
+  "pages": 1400
+}
+
+Exempel-URL:
+PATCH http://localhost:8080/books/{_id}
+
+Tips:
+Du måste skapa en flexibel route som använder $set för att bara ändra de fält användaren skickar med.
+
+--------------------------------------
+Övning 3: Sortering vid hämtning
+
+Skapa en GET-route där böckerna kan hämtas och sorteras efter antal sidor (stigande eller fallande).
+
+Exempel: (Stigande)
+GET http://localhost:8080/books/sorted/pages/asc
+
+Exempel: (Fallande)
+GET http://localhost:8080/books/sorted/pages/desc
+
+Tips: Använd NeDB:s .sort()-funktion efter .find().
+
+--------------------------------------
+🚩 Bonus för snabba studenter:
+
+Kombinera flera svåra nivåer. Exempelvis skapa en avancerad sökning och sedan sortera resultaten.
+
+Implementera felhantering (validering med Joi eller egen kontroll) för bättre och säkrare kod.
