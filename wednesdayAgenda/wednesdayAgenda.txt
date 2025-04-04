@@ -1,115 +1,211 @@
-🚀 Lektion 1: Introduktion Databaser och NeDB
+🚀 Lektion 2: CRUD-operationer och datamodellering med Express och NeDB
 
 📌 Lektionsmål:
 Efter lektionen ska de studerande kunna:
 
-Förstå grunderna i datamodellering och dess syfte.
+Förstå vad CRUD-operationer är och hur de används med NeDB och Express.
 
-Förstå vad en databas är och skillnaden mellan SQL och NoSQL.
+Implementera fullständiga CRUD-operationer (Create/POST/insert(), Read/GET/find()/findone(), Update/PUT/update(), DELETE/remove()).
 
-Förstå konceptet "Persistent data".
-
-Skapa och använda en enkel NoSQL-databas (NeDB).
-
-Skapa ett enkelt API som interagerar med en JSON-databas.
+Förstå hur datamodellering påverkar hur CRUD-operationerna implementeras i en databas.
 
 ------------------------------------------------------------
 📝 Lektionsplanering (3 timmar):
 
-00:00–01:30	✅ Självständig övning (Utan lärare)
-01:30–02:00	✅ PowerPoint & teori
-02:00–02:50	✅ Code-Along: NeDB och enkel CRUD+
+✅ PowerPoint & teori: CRUD och Datamodellering (kort repetition och fördjupning)
+✅ Code-Along: Full CRUD med Express och NeDB
+✅ Självständig övningar:
 
 ------------------------------------------------------------
 ------------------------------------------------------------
 ------------------------------------------------------------
 
-📚 PowerPoint-slides (Datamodellering) & Talarmanus:
+📚 PowerPoint & Teori (30 min):
+Slides från tidigare lektion att använda som repetition och fördjupning:
 
-Slide 1 – Vad är en Datamodell?
-"En datamodell är ett verktyg vi använder för att organisera och strukturera data. Den visar tydligt hur olika delar av vår data hänger ihop, och hjälper oss att förstå relationer mellan objekt, egenskaper och händelser i verkligheten. Målet är att skapa ordning i komplex information."
+Slide 1 – Vad är en databas?
 
--------------------------------------------------
-Slide 2 – Utmaningen
-"Den stora utmaningen när vi jobbar med datamodellering är att verkligheten är oerhört komplex. Vår uppgift blir därför att hitta ett sätt att förenkla denna komplexitet, så att vi kan lagra och hantera data effektivt."
+"Vi börjar kort med repetition: En databas är en organiserad samling data specialbyggd för effektiv lagring, sökning, ändring och borttagning av information."
 
--------------------------------------------------
-Slide 3 – Verkligheten vs Datamodell
-"Den här bilden illustrerar ett viktigt koncept: Datamodellen är alltid en förenkling av verkligheten. Till exempel: en människa är komplex med känslor, tankar, upplevelser och relationer. När vi modellerar detta i en databas kan vi bara fånga en liten del – kanske namn, ålder, adress. Datamodellen är alltså aldrig verkligheten själv, utan bara en avgränsad representation av den."
+Men varför kan vi inte bara använda vanliga filer (t.ex. textfiler eller JSON-filer)?
 
--------------------------------------------------
-Slide 4 – Exempel: Bil
-"När vi modellerar data om ett specifikt objekt, till exempel en bil, börjar vi med att fundera över vilka egenskaper som utmärker detta objekt. Vilka egenskaper har alla bilar gemensamt? Vad skiljer bilar åt? Genom att besvara dessa frågor kan vi skapa en tydlig modell."
+Nackdelar med filbaserad lagring:
 
--------------------------------------------------
-Slide 5 – Bild (3 olika bilar)
-"Titta på dessa tre bilar: en sportbil, en familjebil och en lastbil. De är väldigt olika, men vad har de gemensamt? Alla har hjul, ett drivmedel, ett registreringsnummer, och så vidare. Datamodellen för en bil ska fokusera på de egenskaper som alla bilar delar. Det är grunden för en hållbar och skalbar datamodell."
+Långsamma sökningar:
+Filer saknar inbyggd indexering, vilket innebär att vi måste läsa hela filen för att hitta specifik data.
 
--------------------------------------------------
-Slide 6 – Exempel på Bil-objekt
-"Här är ett konkret exempel på ett bil-objekt i JavaScript. Vi har valt några grundläggande egenskaper som antal hjul och bränsletyp. Frågan vi bör ställa oss är alltid: Är alla egenskaper relevanta att spara? Behöver vi verkligen lagra om bilen har en ratt, eller är det självklart?"
+Ineffektiva uppdateringar:
+För att ändra en liten del av data måste hela filen ofta laddas, ändras och sparas igen.
 
--------------------------------------------------
-Slide 7 – Övning (Cykel-objekt)
-"Nu får ni testa själva: Fundera över vilka egenskaper som kännetecknar en cykel. Vad är gemensamt för alla cyklar? Vilka egenskaper skiljer olika cyklar åt? Detta är kärnan i att skapa en effektiv datamodell."
+Risk för datakorruption:
+Vid parallell åtkomst (flera användare samtidigt) kan filen enkelt bli korrupt eller förlora data.
 
--------------------------------------------------
-Slide 8 – I vilken form kommer data?
-"Data kommer i flera olika format som text, nummer, objekt, arrayer, booleans och binärt format som bilder eller filer. Vilken form data har påverkar hur vi sparar och hanterar den."
+Varför är databaser mer effektiva?
+
+Snabba sökningar:
+Databaser har indexering som snabbt hittar exakt rätt data.
+
+Effektiva uppdateringar:
+Kan ändra en liten del av data utan att behöva läsa eller skriva hela filen.
+
+Transaktionshantering:
+Garanti för data-integritet, vilket innebär att data alltid är korrekt och pålitlig, även om något går fel under en ändring.
 
 -------------------------------------------------
-Slide 9 – Hur ska data sparas?
-"Hur vi sparar data beror på komplexiteten. Enkel data kan sparas i listor eller tabeller, medan mer komplex data ofta kräver dokumentformat eller relationer mellan tabeller eller dokument."
+Slide 2 – Databastyper (SQL & NoSQL)
+
+"Vi delar in databaser i två huvudsakliga typer: SQL-databaser, som använder fasta tabeller med strikt struktur, och NoSQL-databaser, som lagrar data mer flexibelt i dokumentform."
+
+Exempel på när du väljer SQL:
+
+Banktransaktioner: Varje transaktion måste vara exakt, komplett och tillförlitlig. En SQL-databas passar perfekt här tack vare dess strikta regler och dataintegritet.
+
+Exempel:
+"Överför du pengar måste transaktionen antingen lyckas helt eller misslyckas helt. SQL garanterar detta."
+
+Exempel på när du väljer NoSQL:
+
+Sociala medier och webbshoppar: Dessa tjänster hanterar varierande dataformat (bilder, kommentarer, recensioner), vilket kräver hög flexibilitet.
+
+Exempel:
+"Instagram sparar enorma mängder data med olika strukturer och ändrar ständigt datamodellen under utveckling. Då är NoSQL optimalt."
+
+Varför behöver vi förstå båda typerna?
+SQL och NoSQL kompletterar varandra snarare än konkurrerar. Genom att förstå båda kan du välja rätt lösning beroende på projektets faktiska behov.
 
 -------------------------------------------------
-Slide 10 – Databastyper
-"Det finns två huvudtyper av databaser: SQL (relationella) och NoSQL (dokumentbaserade). SQL använder tabeller med strikt struktur medan NoSQL sparar data i ett flexibelt dokumentformat."
+Slide 3 – Relationsdatabas
+
+"SQL-databaser som MySQL eller PostgreSQL använder tabeller. Varje rad och kolumn har en fast struktur, vilket gör data tydlig och hög dataintegritet men mindre flexibel."
+
+Fördelar:
+
+Data-integritet:
+Strikta regler säkerställer att all data alltid är konsekvent och pålitlig.
+
+Tydliga relationer (JOINs):
+SQL är väldigt bra på att tydligt hantera och sammanfoga data från olika tabeller.
+
+Enkel och tydlig struktur:
+Lätt att förstå hur data är organiserad.
+
+Nackdelar:
+
+Svårt att ändra i efterhand:
+Att förändra databasen efter skapande kan vara komplext och tidskrävande.
+
+Svårigheter att skala horisontellt:
+Hantering av stora mängder data kräver oftast dyrare hårdvara eller komplexa lösningar.
+
+Långsam utveckling vid förändring:
+Mindre lämpat för projekt där krav och struktur förändras ofta.
 
 -------------------------------------------------
-Slide 11 – Vad är en databas?
-"En databas är helt enkelt en organiserad samling data. Den är specialiserad på att effektivt lagra, söka, ändra och ta bort data – ofta stora mängder information."
+Slide 4 – NoSQL-databas
+
+"NoSQL-databaser som MongoDB eller NeDB lagrar data i dokument (ofta JSON). Detta format gör att strukturen kan variera mellan olika dokument, vilket ger stor flexibilitet."
+
+Fördelar:
+
+Snabb och flexibel utveckling:
+Du kan enkelt och kontinuerligt förändra datamodellen under projektets gång.
+
+Horisontell skalbarhet:
+Enkelt att lägga till fler servrar och hantera stora mängder data utan dyr hårdvara.
+
+Passar bra för varierande data:
+Data med olika strukturer kan lätt sparas och hanteras.
+
+Nackdelar:
+
+Risk för duplicerad data:
+Samma information kan hamna på flera platser, vilket leder till inkonsekvens om man inte är försiktig.
+
+Svagare dataintegritet:
+Flexibiliteten kan innebära att du lättare gör misstag om du inte är noggrann med datavalidering och kontroll.
+
+Svårt med komplexa relationer:
+Att hantera avancerade relationer och komplexa kopplingar mellan dokument är svårare än med en SQL-databas.
 
 -------------------------------------------------
-Slide 12 – Persistent data
-"Persistent data är data som lagras permanent och inte försvinner när servern stängs av. Typiska exempel är användarinformation, inställningar eller inlägg och kommentarer."
+Slide 5 – NeDB: Enkel JSON-databas
+
+"Vi fokuserar denna kurs på NeDB, som är en liten och lättanvänd JSON-databas perfekt för små projekt och lokal utveckling. Ingen separat server behövs."
 
 -------------------------------------------------
-Slide 13 – Vad är SQL?
-"SQL-databaser organiserar data strikt i tabeller där varje rad har samma struktur. Ett exempel på en SQL-fråga är: 'SELECT * FROM customers WHERE name = Johan'."
+Slide 6 – Installera NeDB
+
+"För att installera NeDB kör vi helt enkelt npm install nedb. Då är vi redo att börja använda databasen direkt."
 
 -------------------------------------------------
-Slide 14 – Vad är NoSQL?
-"NoSQL-databaser lagrar data flexibelt, ofta som JSON-dokument. De är perfekta när data har varierande struktur eller behöver ändras ofta under utvecklingen."
+Slide 7 – Skapa och ladda NeDB-databasen
+
+"När vi använder NeDB skapar vi en databas genom att ange ett filnamn, exempelvis books.db. Databasen laddas automatiskt in vid applikationsstart."
 
 -------------------------------------------------
-Slide 15 – NoSQL vs Relational (Normalisering)
-"Normalisering är en process inom SQL där vi undviker att samma data lagras flera gånger. NoSQL tillåter tvärtom viss duplicering, eftersom flexibilitet ofta är viktigare än datakonsistens."
+Slide 8 – CRUD-operationer med NeDB: Insert (CREATE)
+
+"För att lägga till data (CREATE) i NeDB använder vi metoden .insert(). Vi skickar in objektet vi vill spara, och databasen returnerar sedan samma objekt inklusive ett unikt _id."
 
 -------------------------------------------------
-Slide 16 – NoSQL vs Relational (Flexibilitet)
-"SQL-databaser kräver strikt och oföränderlig struktur från början. I NoSQL-databaser kan vi däremot ändra och anpassa datastrukturen kontinuerligt efter projektets behov."
+Slide 9 – CRUD-operationer med NeDB: Find & FindOne (READ)
+
+"För att läsa data (READ) har vi två metoder: .find() för att returnera en lista med dokument, och .findOne() när vi vill ha ett enda specifikt dokument. 
+
+I båda fallen använder vi en query, alltså ett objekt som anger vilken data vi vill hitta. En tom query ({}) betyder att vi hämtar allt."
+-------------------------------------------------
+Slide 10 – CRUD-operationer med NeDB: Update (UPDATE)
+
+"För att uppdatera data (UPDATE) använder vi .update(). Vi anger först en query som hittar dokumentet vi vill ändra och sedan vad vi vill ändra. $set används för att specificera exakt vilka fält som ska uppdateras."
+
+I en NoSQL-databas (som NeDB, MongoDB eller CouchDB) är "dokument" exakt det ord som används för att beskriva en enskild post i databasen.
+
+Ett "dokument" är alltså ett objekt med flera egenskaper, sparat i JSON-format.
+
+När vi använder .find() får vi tillbaka en lista med dokument, medan .findOne() returnerar ett enda dokument.
 
 -------------------------------------------------
-Slide 17 – NoSQL vs Relational (Skalbarhet)
-"När mängden data ökar kan SQL-databaser bli långsamma och kräver ofta bättre hårdvara. NoSQL-databaser däremot kan enkelt skalas horisontellt genom att lägga till fler servrar, vilket passar bra för stora mängder data, så kallad Big Data."
+Slide 11 – CRUD-operationer med NeDB: Remove (DELETE)
+
+"För att ta bort dokument (DELETE) använder vi .remove(). Även här använder vi en query för att välja ut exakt vilka dokument som ska tas bort."
+
+Första parametern {name: "Anna"}
+Detta är en query (förfrågan). Det betyder:
+"Hitta och ta bort dokument där name är lika med Anna."
+
+🔸 Andra parametern {}
+Dessa är optioner. Här anger man inställningar om hur borttagningen ska gå till:
+
+De vanligaste optionerna är:
+multi:
+false (standardvärde): Tar bara bort ett enda matchande dokument (även om flera dokument matchar).
+
+true: Tar bort alla dokument som matchar.
+
+Eftersom vi har {} här används standardvärdet (multi: false) – alltså tas bara det första matchande dokumentet bort.
+
+Exempel med multi: true:
+db.remove({ name: "Anna" }, { multi: true }, () => {});
+// Tar bort ALLA dokument med namn Anna.
+
+🔸 Tredje parametern (callback ()=>{})
+Den här callback-funktionen körs efter att .remove() är klar.
+
+Vi får två parametrar:
+
+err: felmeddelande om något går fel.
+
+numRemoved: antal dokument som togs bort.
 
 -------------------------------------------------
-Slide 18 – NoSQL vs Relational (Utvecklingsflexibilitet)
-"En viktig skillnad är utvecklingsflexibiliteten. Med SQL måste du veta exakt vilken data du ska spara redan från början, medan NoSQL-databaser låter dig utveckla och ändra datamodellen löpande under projektets gång. Det ger stor flexibilitet för utvecklaren."
+Slide 12 – Varför NeDB?
 
--------------------------------------------------
-Slide 19 – Hur ska man tänka?
-"Så, hur ska du tänka när du modellerar data? Börja alltid med att utgå från applikationens gränssnitt och funktion. Vilken data behövs verkligen för att lösa problemet? Fundera över säkerhet, som känslig data. Tänk alltid på verkliga objekt och deras egenskaper, så bygger du en logisk och hållbar datamodell."
+"Varför väljer vi NeDB? För att det är enkelt att komma igång, perfekt för mindre projekt och ger er en tydlig förståelse för NoSQL-databaser. Dessutom underlättar det övergången till MongoDB om ni väljer att fortsätta vidare. Och för som vi använder nästa kurs (bland annat)"
 
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
-💻 Code-Along: NeDB och enkel CRUD:
-
-🔧 Steg 1: Installation
-
-npm init -y
-npm install nedb express
+💻 Code-Along: Implementera full CRUD i Express med NeDB
 
 -------------------------------------------------
 🏗️ Projektstruktur:
@@ -119,18 +215,8 @@ projektmapp/
 └── package.json
 
 -------------------------------------------------
-📌 Steg 2: Skapa Express-server (server.js):
-
-Genomför den koden.
-
-📌 Steg 3: Skapa och ladda NeDB-databasen:
-
-Genomför den koden.
-
-📌 Steg 4: CRUD-operationer:
-CREATE (POST):
-
-READ (GET):
+📌 Steg 2: Skapa Express-server:
+Fil: server.js (Fortsättning från lektion 1)
 
 Genomför den koden.
 
@@ -140,40 +226,81 @@ Genomför den koden.
 1. Starta servern:
 node server.js
 
-2. Välj POST och skriv in adressen:
-http://localhost:3000/books
+-------------------------------------------------
+POST: skapa bok med JSON-body:
+http://localhost:8080/books
 
-3. Klicka på fliken "Body", välj "raw" och välj JSON-format.
-
-4. Lägg in detta exempelobjekt:
+Body:
 {
-    "title": "Harry Potter",
-    "author": "J.K. Rowling",
-    "pages": 450
+  "title": "Harry Potter och De Vises Sten",
+  "author": "J.K. Rowling",
+  "pages": 450
 }
 
-5. Klicka på Send.
-Du ska få tillbaka samma objekt med ett nytt id genererat av NeDB.
+-------------------------------------------------
+🔹 GET (hämta alla böcker):
+http://localhost:8080/books
 
---------------------------------------------------
-Testa sedan GET:
+Body: Behövs inte.
 
-1. Välj nu GET i Postman.
+-------------------------------------------------
+🔹 GET (hämta en specifik bok med ID):
+http://localhost:8080/books/<book_id=byt ut ID mot faktiskt _id från databasen>
 
-2. Samma adress (http://localhost:3000/books), klicka på Send.
+Exempel: http://localhost:8080/books/d62H7jEfnoHxkmW4
 
-3. Du ska nu få en lista med sparade böcker tillbaka från databasen.
+Body: Behövs inte.
+
+-------------------------------------------------
+🔹 PUT (uppdatera bok):
+http://localhost:8080/books/<book_id>
+
+Body (raw JSON): (endast de fält du vill ändra):
+Exempel där jag ändrar "pages":
+{
+  "pages": 500
+}
+
+-------------------------------------------------
+🔹 DELETE (ta bort en specifik bok):
+http://localhost:8080/books/<book_id>
+
+Body behövs inte.
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+⚠️ Viktigt att förstå om NeDB:
+insert() – Lägger till ett nytt dokument och genererar automatiskt ett unikt _id.
+
+find() – Hämtar en lista med dokument som matchar angiven query ({} hämtar alla).
+
+findOne() – Hämtar första matchande dokumentet (användbart när du söker på unika fält, som _id).
+
+update() – Uppdaterar dokument som matchar angiven query.
+
+{ $set: {...} } ändrar specifika fält utan att ersätta hela dokumentet.
+
+remove() – Tar bort dokument som matchar queryn.
+
+{} anger alternativ (multi:true) om man vill ta bort flera dokument.
 
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
 🧠 Reflektionsfrågor till diskussion
 
+- Vilka praktiska situationer kan du komma på där en NoSQL-databas passar bättre än en SQL-databas, och tvärtom?
+
+- Varför tror du att NoSQL-databaser har blivit så populära bland webbutvecklare?
+
+- När skulle flexibiliteten i en NoSQL-databas kunna bli ett problem istället för en fördel?
 
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
 🗣️ Sammanfattning
+"Idag har vi fördjupat oss i CRUD-operationer, och ni har fått en tydligare förståelse för hur dessa implementeras med NeDB. Det viktigaste att ta med sig är att förstå skillnaden mellan olika databastyper och att känna sig bekväm med att skriva grundläggande CRUD-operationer."
 
 -------------------------------------------------
 -------------------------------------------------
