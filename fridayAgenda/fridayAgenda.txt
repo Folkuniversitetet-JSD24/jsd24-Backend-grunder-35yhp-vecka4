@@ -1,0 +1,126 @@
+🚀 Lektion 3: Code Review, Repetition & Introduktion till Grupp-examination
+
+📌 Lektionsmål:
+Efter lektionen ska studenterna:
+
+Ha reflekterat kring sina lösningar och fått feedback genom code review.
+
+Repetera viktiga koncept kring databaser, särskilt NoSQL och NeDB.
+
+Få en tydlig förståelse för nästa veckas grupp-examination och sina roller i projektet.
+
+------------------------------------------------------------
+📝 Lektionsplanering:
+
+00:00–01:30	🔍 Code Review & Peer Feedback
+01:30–02:30	📚 Repetition & fördjupning: NoSQL-koncept & datamodellering
+02:30–03:00	🧪 Introduktion till grupp-examination + Gruppindelning
+
+------------------------------------------------------------
+------------------------------------------------------------
+------------------------------------------------------------
+🔍 1. Code Review & Peer Feedback (90 min)
+
+Upplägg:
+
+Studenterna sitter i par eller små grupper (3–4 personer).
+
+De visar upp sin lösning på minst en av övningarna (från lektion 1–2).
+
+Fokus: hur de tänkte, hur de löste det, vad de hade kunnat göra annorlunda.
+
+Använd gärna en enkel feedbackmall:
+✅ Fungerar?
+✅ Ren kod?
+✅ Kreativa lösningar?
+🛠 Vad hade kunnat förbättras?
+
+Tips till dig som lärare:
+När du går runt i grupperna – prioritera att:
+Be studenterna förklara sin kod högt.
+Ställ frågor som: "Varför valde du att göra så här?" eller "Vad skulle hända om...?"
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+📚 2. Repetition & Fördjupning (60 min)
+
+Här kommer förslag på ämnen som bör förstärkas eller inte hunnits med:
+
+✅ Persistent data (om det ej hunnits med tydligt)
+
+Kort förklaring:
+"Persistent betyder att datan finns kvar även efter att vi stänger av servern. NeDB sparar till fil, t.ex. books.db, vilket gör datan persistent. I minnet skulle allt försvinna vid omstart."
+
+Visa gärna skillnaden i kod:
+// In-memory
+const db = new Datastore(); 
+
+// Persistent
+const db = new Datastore({ filename: "books.db", autoload: true });
+
+------------------------------------
+✅ Datatyper och modellering – Tillämpat exempel
+
+Be studenterna diskutera:
+Hur ser ett dokument ut i deras projekt?
+
+Vilka datatyper använder de (strängar, nummer, arrayer)?
+
+Finns det risk att datan inte är konsekvent? Hur kan det lösas?
+
+.................................
+Miniövning (5–10 min):
+Rita upp en "bok"-modell på tavlan och be klassen:
+
+Vad händer om någon av böckerna saknar pages? Eller har pages som sträng? Hur påverkar det funktioner som sortering, sökning, filtrering?
+
+.................................
+✅ Introduktion till MongoDB & mongoose (för de nyfikna)
+
+Valfri visuell demo:
+Visa ett exempel på hur samma "books"-struktur kan definieras i MongoDB med mongoose:
+
+import mongoose from "mongoose";
+
+const BookSchema = new mongoose.Schema({
+  title: String,
+  author: String,
+  pages: Number,
+});
+
+const Book = mongoose.model("Book", BookSchema);
+
+"Mongoose kräver att vi definierar en tydlig modell (schema), till skillnad från NeDB. Detta är kraftfullt, men också mer formellt."
+
+..................................
+✅ Kort repetition av CRUD med Postman
+
+Be 2–3 elever demonstrera ett anrop var:
+Skicka POST till /books
+
+Hämta med GET /books/:id
+
+Uppdatera med PUT
+
+Ta bort med DELETE
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+🧪 3. Grupp-examination (30 min)
+
+Innehåll:
+
+- Gå igenom vad de ska bygga
+
+- Gruppindelning
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+🧠 Reflektionsfrågor till diskussion
+
+- Förklara skillnaden mellan hur ni trodde databashantering skulle vara innan veckan och hur det kändes nu.
+
+- Någon från varje grupp: Nämn en sak ni tycker var svårast eller mest lärorik.
