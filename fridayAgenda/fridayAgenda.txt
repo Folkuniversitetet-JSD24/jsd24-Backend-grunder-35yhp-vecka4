@@ -3,17 +3,16 @@
 📌 Lektionsmål:
 Efter lektionen ska studenterna:
 
-Ha reflekterat kring sina lösningar och fått feedback genom code review.
-
-Repetera viktiga koncept kring databaser, särskilt NoSQL och NeDB.
-
-Få en tydlig förståelse för nästa veckas grupp-examination och sina roller i projektet.
+✅ Reflektera kring sina lösningar och få peer feedback
+✅ Repetera viktiga databasbegrepp (persistent data, modellering)
+✅ Lära sig hur MongoDB och Mongoose fungerar tillsammans med Express
+✅ Vara redo inför grupp-examinationen kommande vecka
 
 ------------------------------------------------------------
 📝 Lektionsplanering:
 
 00:00–01:30	🔍 Code Review & Peer Feedback
-01:30–02:30	📚 Repetition & fördjupning: NoSQL-koncept & datamodellering
+01:30–02:30	💻 Repetition & Code-Along: MongoDB + Mongoose
 02:30–03:00	🧪 Introduktion till grupp-examination + Gruppindelning
 
 ------------------------------------------------------------
@@ -76,34 +75,93 @@ Rita upp en "bok"-modell på tavlan och be klassen:
 Vad händer om någon av böckerna saknar pages? Eller har pages som sträng? Hur påverkar det funktioner som sortering, sökning, filtrering?
 
 .................................
-✅ Introduktion till MongoDB & mongoose (för de nyfikna)
-
-Valfri visuell demo:
-Visa ett exempel på hur samma "books"-struktur kan definieras i MongoDB med mongoose:
-
-import mongoose from "mongoose";
-
-const BookSchema = new mongoose.Schema({
-  title: String,
-  author: String,
-  pages: Number,
-});
-
-const Book = mongoose.model("Book", BookSchema);
-
-"Mongoose kräver att vi definierar en tydlig modell (schema), till skillnad från NeDB. Detta är kraftfullt, men också mer formellt."
+.................................
+.................................
+🚀 Code-Along: MongoDB + Mongoose (ca 60 min)
+📦 1. Installation & förberedelser
+🔧 Du behöver:
+✅ Node.js (installerat redan)
+✅ MongoDB Atlas (gratis molntjänst – ingen lokal installation krävs)
+✅ Postman eller Insomnia (för att testa API:et)
 
 ..................................
-✅ Kort repetition av CRUD med Postman
+💡 2. Repetition & Code-Along: MongoDB Atlas + Mongoose (60 min)
+🎤 Teoretisk bakgrund (kort)
+Vad är en molndatabas? Varför MongoDB Atlas?
 
-Be 2–3 elever demonstrera ett anrop var:
-Skicka POST till /books
+Mongoose = bibliotek som hjälper oss strukturera MongoDB-data i Node.js.
 
-Hämta med GET /books/:id
+Skillnad mellan NeDB och MongoDB + Mongoose.
 
-Uppdatera med PUT
+🛠️ Skapa gratisdatabas på MongoDB Atlas:
+Gå till: https://www.mongodb.com/cloud/atlas/register
 
-Ta bort med DELETE
+Skapa ett gratiskonto och välj Shared Cluster (Free Tier)
+
+Skapa en ny databas med:
+
+Cluster name: ClusterFolkan (valfritt)
+
+Database name: booksdb
+
+Collection: books
+
+Skapa en användare under Database Access (manduslindstrom)
+
+Under Network Access, tillåt IP-adresser: "Allow Access From Anywhere (0.0.0.0/0)"
+
+Kopiera connection string från Connect > Drivers > Node.js
+
+Exempel (din sträng kommer skilja sig):
+
+MONGODB_URI=mongodb+srv://manduslindstrom:DIN-LÖSENORD@clusterfolkan.mongodb.net/booksdb?retryWrites=true&w=majority
+
+
+..................................
+💾 3. Installera mongoose, express och dotenv
+Kör i terminalen:
+npm install express mongoose dotenv
+
+
+..................................
+📝 4. Skapa server.js
+genomför den koden
+
+5 
+skapa .env filen:
+Genomför den koden
+..................................
+🎤 Talarmanus att använda under code-alongen:
+"Vi börjar med att installera mongoose – ett bibliotek som gör det enklare att jobba med MongoDB i Node."
+
+"MongoDB lagrar data i dokument, men mongoose tvingar oss att skapa en struktur – det vi kallar ett schema. Det är lite som TypeScript för databasen."
+
+"Vi ansluter till vår molndatabas med hjälp av en connection string – den måste alltid vara hemlig i produktion, men vi använder den här tillfälligt."
+
+"Varje route vi bygger är en CRUD-operation. Koden är snarlik NeDB – men skillnaden är att mongoose jobbar mer med await/async och har bättre felhantering."
+
+"För att spara en bok skapar vi en ny instans av modellen (new Book(req.body)), och sedan .save()."
+
+"I GET-routes använder vi Book.find() och Book.findById() – superenkelt!"
+
+"Uppdatering görs med findByIdAndUpdate, och vi skickar { new: true } för att få tillbaka den uppdaterade boken."
+
+"Delete använder findByIdAndDelete – fungerar som förväntat."
+
+..................................
+..................................
+..................................
+🧪 Testa i Postman (samma som NeDB)
+POST: http://localhost:8080/books
+Body: { "title": "MongoDB för nybörjare", "author": "Mandus", "pages": 220 }
+
+GET: http://localhost:8080/books
+
+GET (en bok): http://localhost:8080/books/<id>
+
+PUT: http://localhost:8080/books/<id>
+
+DELETE: http://localhost:8080/books/<id>
 
 -------------------------------------------------
 -------------------------------------------------
@@ -120,6 +178,8 @@ Innehåll:
 -------------------------------------------------
 -------------------------------------------------
 🧠 Reflektionsfrågor till diskussion
+
+- Vad var största skillnaden mellan NeDB och MongoDB?
 
 - Förklara skillnaden mellan hur ni trodde databashantering skulle vara innan veckan och hur det kändes nu.
 
