@@ -271,6 +271,7 @@ Body behövs inte.
 -------------------------------------------------
 -------------------------------------------------
 ⚠️ Viktigt att förstå om NeDB:
+
 insert() – Lägger till ett nytt dokument och genererar automatiskt ett unikt _id.
 
 find() – Hämtar en lista med dokument som matchar angiven query ({} hämtar alla).

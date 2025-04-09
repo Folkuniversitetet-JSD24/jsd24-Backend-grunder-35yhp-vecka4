@@ -1,0 +1,18 @@
+{
+  "name": "jsd24-backend-grunder-35yhp-vecka4",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "* ✅ Vad är en databas?\r * ✅ Persistent data \r * ✅ Datamodellering och best practices\r    - Vad är databasen till för?\r    - Dess syfte?\r    - Vad vill vi spara för data?\r    - Vad är det för typ av data vi vill spara (datatyper)?\r * ✅ NeDB: Enkel NoSQL-databas för lokala projekt (Huvudfokus i kursen)\r * ✅ MongoDB: Introduktion och valfri fördjupning (Studenter väljer själva om de vill använda den)\r * ✅ CRUD-operationer i en databas",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nedb": "^1.8.0"
+  }
+}
